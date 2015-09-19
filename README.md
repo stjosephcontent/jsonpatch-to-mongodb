@@ -4,7 +4,7 @@
 
 Convert [JSON patches](http://jsonpatch.com/) into a MongoDB update.
 
-## Example
+## Example 1: Replace a string property
 
 ```javascript
 var toMongodb = require('jsonpatch-to-mongodb');
@@ -20,6 +20,19 @@ console.log(toMongodb(patches));
 
 Example: [with express and mongoose](http://github.com/imlucas/jsonpatch-to-mongodb/tree/master/examples/express)
 
+## Example 2: Add an element to an array
+
+```javascript
+var toMongodb = require('jsonpatch-to-mongodb');
+var patches = [{
+  op: 'add',
+  path: '/some-path/names',
+  value: ['dave']
+}];
+
+console.log(toMongodb(patches));
+// "$push": { "some-path/names": { "$each": ["dave"] } }
+```
 
 ## Install
 
